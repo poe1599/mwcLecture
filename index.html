@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        line-height: 1.5;
+      }
+
+      .lectureGroup {
+        padding: 16px;
+        background: #9ae0d9;
+        margin-bottom: 16px;
+      }
+
+      .lectureGroup h4 {
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .lectureGroup li {
+        margin-bottom: 4px;
+        position: relative;
+      }
+
+      .lectureGroup .intrested::before {
+        position: absolute;
+        display: inline-block;
+        left: -40px;
+        top: 8px;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: orange;
+        opacity: 0.8;
+      }
+
+      .lectureGroup .priority {
+        text-decoration: 2px underline orangered;
+        text-underline-offset: 4px;
+      }
+
+      .lectureTitles {
+        column-count: 3;
+        column-gap: 64px;
+      }
+
+      .lectureLink {
+        color: black;
+        text-decoration: none;
+      }
+
+      .lectureLink:hover {
+        color: rgb(120, 23, 247);
+      }
+
+      .container {
+        width: 1200px;
+        margin: 32px auto;
+      }
+
+      h3 {
+        font-size: 32px;
+        margin-top: 0;
+      }
+
+      .item {
+        margin-bottom: 32px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .item:not(:last-of-type) {
+        border-bottom: 4px dashed black;
+      }
+
+      .box {
+        margin-bottom: 32px;
+        padding: 16px;
+        background: #cfe9ef;
+      }
+
+      .box:nth-child(2) {
+        width: 300px;
+        padding: 0;
+        flex: 0 0 auto;
+        background: rgb(233, 214, 252);
+      }
+
+      .session-tag li {
+        margin-bottom: 16px;
+      }
+
+      .session-tag li .title {
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      .agenda-sp {
+        padding-top: 16px;
+        border-top: 1px dashed black;
+      }
+
+      img {
+        width: 200px;
+      }
+
+      .btnTop {
+        position: fixed;
+        bottom: 60px;
+        right: 60px;
+        width: 48px;
+        height: 48px;
+        background: orange;
+        border-radius: 50%;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      // 感興趣主題
+      const intrestedLectures = [
+        2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 26, 27, 28, 29, 30, 31, 34, 36, 37,
+        38, 39, 40, 42, 44, 45, 46,
+      ]
+      // 優先去的主題
+      const priorityLectures = [7, 10, 11, 13, 14, 15, 28, 34]
+      let data = [
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><span class="keytag">KEYNOTE</span></div> <h3>Stacking Insight</h3></div> <div><p>（Bing翻譯）在這次的演講中，我們將探討組織如何建立平台能力，以解決這家公司所面臨的具體商業挑戰。我們將以Zalando，歐洲時尚的起點，作為這次旅程的案例研究。我們將看看他們是如何通過不同階段的業務發展，以及他們在那個時刻所面臨的商業挑戰。我們將通過產生的技術挑戰的角度來看待這些問題，然後看看我們是如何解決這些技術挑戰的。最後，我們將談談我們如何將這些知識作為“開發者平台”的一部分而編碼，我們最終稱之為“Sunrise”。從這次演講中，您應該能夠從Zalando的成長中帶走一些啟示，應用到您的組織中，並且更好地理解如何為未來定位自己。</p>\n\n<p><br></p>\n\n<p>In this talk, we\'ll look at how organizations build platform capabilities to solve concrete business challenges that this company is facing. We\'ll use Zalando, the starting point for European fashion, as the case study for this journey. We\'ll look at how they grew through the different stages of their business and the business challenges they had at that moment in time. We\'ll look at that through the lens of the resulting technical challenges and then how we solved those technical challenges. Lastly, we\'ll talk about how we codified this knowledge as part of the "developer platform" that we ultimately called "Sunrise." From this talk, you should be able to take away less from Zalando\'s growth to apply to your organizations and best understand how to position yourself for the future.</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/24de1dac-f8ce-4e8c-9d7e-1bf5f4bfee7d.jpg" alt=""></div> <div class="col-md-9"><h4>Andrew Howden</h4> <h6> <span style="display:none;">/</span> Engineering Manager</h6> <div><p>（Bing翻譯）Andrew 是一個失敗的運動科學學生，他因為運氣和找工作的迫切需要而偶然進入了軟體工程的領域。在他的同事的恩典和耐心的指導下，他花了十多年的時間學習如何成為一個軟體工程師、系統工程師、網站可靠性工程師和人因工程學的學生。最近，他正在學習如何成為一個工程管理者，並試圖將他到目前為止所獲得的知識傳授給下一代的軟體冒險家。</p>\n\n<p>Andrew is a failed sports science student who wandered into software engineering with luck and the need to find a job quickly. Through the grace and patience of his colleagues, he has spent over a decade learning how to be a software engineer, systems engineer, site reliability engineer and student of human factors. Most recently, he is learning how to become an engineering manager and trying to pass on what knowledge he gained so far to the next generation of software adventurers.</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div></li> <li><div class="title">適合聽眾</div> <div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#經營決策者（Decision makers）</div><div>#PM</div><div>#SRE</div><div>#Software development</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    英文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><span class="keytag">KEYNOTE</span></div> <h3>用人工智慧助軟體開發</h3></div> <div><p>ChatGPT 等技術已經可以用來幫助程式設計師寫程式，接下來呢？本演講試圖對這個方向進行延伸，提出未來的願景，並設計出符合願景的技術框架，詳細解說如何實現這個框架。這個願景是：</p>\n\n<ol><li>編程門檻降低，非技術人員可以自己描述程式，避免和程式設計師等中間人溝通的損耗</li><li>根據使用者的意圖，系統能動態地組合基礎功能，不需要事先編寫 App</li><li>根據執行過程的需要，系統能動態地生成 UI，不需要事先設計與編寫 UI 的程式</li><li>設計 Intelligent Agent 來從旁學習用戶的舉止，建立用戶心智模型（Mental Model），逐漸能代替用戶行事</li></ol></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/e72b955e-5b22-44ef-b8b5-83f29042c3f1.jpg" alt=""></div> <div class="col-md-9"><h4>蔡學鏞</h4> <h6> <span style="display:none;">/</span> 架構師</h6> <div><p>寫過與翻譯過數本技術暢銷書。曾任中國平安保險、中國銀聯、阿里巴巴支付寶、申萬宏源證券、創新工場的架構師、首席架構師、首席佈道師。目前在臺灣的大型科技集團軟體研發中心負責軟體技術的構思與研發。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><span class="keytag">KEYNOTE</span></div> <h3>透過多重體驗開發平台 (MXDP) 加快開發速度、強化使用者體驗</h3></div> <div><ul><li>HCL Software的總體策略</li><li>Volt MX/Go的多重體驗方向</li><li>Demo–Volt MX快速延伸Notes應用</li></ul></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/4/dbd9d84f-aa8c-4811-a8a7-13711d18472c.jpg" alt=""></div> <div class="col-md-9"><h4>徐剛</h4> <h6>HCL Software <span style="display:;">/</span> 大中華區軟體總經理</h6> <div><p>徐剛先生現任HCL軟件大中華區總經理。 領導HCL軟件在大中華地區的戰畧、銷售、市場、客戶服務、技術支援及運營管理。</p>\n\n<p><br></p>\n\n<p>徐剛先生在企業軟件領域擁有25年的工作經驗。 1998年加入IBM，擔任合作事業部技術總監，經歷資訊技術產業的整個轉變歷程——從電子郵件、即時通信、業務流程應用，到基於互聯網能力的社交商務、業務集成，再到如今的移動化、智能化、數位化時代的業務轉型。</p>\n\n<p><br></p>\n\n<p>憑藉他豐富的工作經歷與深刻的行業洞察，今天他領導的HCL軟件綜合了從雲交付框架，資料庫平臺，主機平臺，應用服務，敏捷開發框架到安全移動使用環境的端到端能力，助力中國企業與政府組織成功轉型。 同時他也積極地開展與戰畧型業務合作夥伴的業務創新，共同創造全新的業務模式以滿足當今大中華地區日新月异的業務發展。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div></li> <li><div class="title">適合聽眾</div> <div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>A11y &amp; customization</h3></div> <div><p>Most current UI libraries provide great user experience with a vast of components. But when it comes to heavy customization, and non-standard scenarios, especially for E-Commerce, they become hard to manage, scale or even slow down performance.</p>\n\n<p>How to create a UI library that provides users the most possible freedom in customizing components, while keeping our performance and scalability to the fullest?</p>\n\n<p>How much accessible we can provide out of the box to our users?</p>\n\n<p>How much customization freedom is enough?</p>\n\n<p>That\'s what my talk\'s about.</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/9df7193a-38d6-494c-8fa5-08a4a10a7c03.jpg" alt=""></div> <div class="col-md-9"><h4>Maya Shavin</h4> <h6>Microsoft <span style="display:;">/</span> Senior Software Engineer</h6> <div><p>Maya is Senior Software Engineer in Microsoft, working extensively with JavaScript and frontend frameworks and based in Israel. She founded and is currently the organizer of the VueJS Israel Meetup Community, helping to create a strong playground for Vue.js lovers and like-minded developers. Maya is also a published author, international speaker and an open-source library maintainer of frontend and web projects. As a core maintainer of StorefrontUI framework for e-commerce, she focuses on delivering performant components and best practices to the community while believing a strong Vanilla JavaScript knowledge is necessary for being a good web developer. She can be reached at her blog (https://mayashavin.com), on Twitter @mayashavin, or via email.</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#Accessibility</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#新人（Newcomer）</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Heptabase from 0 to 1</h3></div> <div><p>新創團隊的每一步都充滿著不確定性，在從 0 到 1 的過程當中，如何兼顧用戶的需求與期待、工程的開發成本、產品迭代速度不是一件容易的事情。在這場演講中，我們將分享在 Heptabase 中，產品開發模式、工程原則與各種功能開發的評估方式與實作的歷程。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/a5d4d2a1-f16e-4eb1-a286-b54fde700b85.jpg" alt=""></div> <div class="col-md-9"><h4>詹雨安 (Yu-An Chan)</h4> <h6>Heptabase <span style="display:;">/</span> Co-founder and CEO</h6> <div><p>Heptabase 創辦人，熱愛學習和做研究，希望能打造全世界最好用的工具和知識網路來幫助大家學習和做研究。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/5b4d6765-4c41-4203-a1aa-d04f9aae2f84.jpg" alt=""></div> <div class="col-md-9"><h4>王祐崙 (Yu-Lun Wang)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>目前任職於 Heptabase，之前在資安公司負責資料視覺化的相關開發，喜歡研究各種技術以及在新創從 0 到 1 打造產品的過程。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/4a5377e3-938e-4cee-a2bb-2d6a0537fe11.jpg" alt=""></div> <div class="col-md-9"><h4>周玉鑫 (Yu-Hsin Chou)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>熱愛研究各種不同的軟硬體技術，從系統底層利用 C 開發簡易 OS kernel，到有複雜交互行為需要考慮的文本編輯器。曾於 Amazon Ring 實習，目前在 Heptabase 協助前後端與手機 app 的開發，喜愛在新創實踐從零到一的過程，運用自身的技術能力做出用戶喜愛的產品！</p>\n\n<p><br></p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>GitOps | 以 A/B 測試為例</h3> <div><p>在現代化技術快速演進的時代，企業和組織不斷尋找能夠提升工作效率的各種方式。此外，也嘗試導入 DevOps 和 Agile 等文化思維環境。然而，首要提升工作效率的方式之一，便是將現有「人為手動」以及「重複性」的工作任務自動化，舉例來說，從開發人員角度來看，部署容器和應用程式……等，都可以將這些手動操作的工作任務，搭配 Git Webhook 建構出 GitOps 機制，達到自動化完成各項工作任務的目標。</p>\n\n<p>因此，企業和組織內的開發人員，都可以透過建構的 GitOps 機制，達到標準化和一致性的組態設定、版本控制、追蹤組態設定更改記錄以方便還原、為應用程式提供穩定來源……等。</p>\n\n<p>在本實戰工作坊中，將以 GitHub 中 Git Webhook 機制，搭配 Ansible Playbook 建立 GitOps 自動化機制，並帶領與會人員實際部署 Nginx 容器，以及 A/B Testing 環境。</p>\n\n<p>最後，也將帶領與會人員實際體驗，在 Red Hat Summit 2023 最新發佈的 Ansible Lightspeed with IBM Watson Code Assistant，讓不熟 Ansible Playbook 的朋友，也能透過生成式 AI 的幫助下輕鬆撰寫出 Ansible Playbook，達到 AI for Code 的目標。</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><ul><li>了解如何整合 Git Webhook 機制，打造出 GitOps 自動化工作流程。</li><li>了解如何透過 Ansible Lightspeed 生成式 AI 機制，讓不熟悉撰寫 Ansible Playbook 的朋友，能夠站在巨人的肩膀上，讓生成式 AI 機制，自動幫助你撰寫出 Ansible Playbook。</li></ul></div> <!----> <div></div> <h5 class="sub-title"><br>學員自備裝置</h5> <div><ul><li>講者將會為參與工作坊的與會人員，每一位準備一台 Azure VM 虛擬主機進行工作坊內的各項實作。</li><li>與會人員需要自備筆電，並確保能夠連線至網際網路，以便連線至 Azure VM 虛擬主機進行體驗和實作。</li><li>建議與會人員預先申請 GitHub 帳號，並建立 Github Public Repository 以便滿足工作坊內容。</li><li>未申請 Github 帳號或無法建立 Github Public Repository 的與會人員，僅能使用講者提供的 Github Public Repository 進行實作，除了操作上較為不便之外體驗也較差。</li></ul></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/600a605f-0b4e-4d15-ba22-9160113b0fa8.jpg" alt=""></div> <div class="col-md-9"><h4>王偉任 (Weithenn)</h4> <h6>Micron / Principal System Manager</h6> <div><p>連續十二年成功獲選 Microsoft MVP 和 VMware vExpert 技術專家，並長期擔任網管人雜誌技術專欄作家，專長為打造 SDDC 軟體定義資料中心、HCI 超融合解決方案、IaC 基礎架構即程式碼環境……等，著有微軟 S2D 軟體定義儲存技術實戰……等共 19 本著作。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Infrastructure as Code</div><div>#Services &amp; Pipeline</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>吃瓜群眾也能懂的 AI 入門</h3></div> <div><p>你不得不知的LLM</p>\n\n<p>- LLM 及其原產地</p>\n\n<p>- License 的差異（商用的限制）</p>\n\n<p>ChatGPT演化史</p>\n\n<p>- InstructGPT 是誰？</p>\n\n<p>- 什麼是 RLHF？</p>\n\n<p>AI 咒語的基本元素 Prompts</p>\n\n<p>- Prompt 的應用</p>\n\n<p>- Token 不只是拿來算費用</p>\n\n<p>AI 應用開發框架 LangChain</p>\n\n<p>- LangChain Ecosystem</p>\n\n<p>- AI 應用常見流程</p>\n\n<p>- 資料向量化</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/91ca0998-8ea3-439b-a2e2-4b4a64c0c6c5.jpg" alt=""></div> <div class="col-md-9"><h4>白翰霖 (Tony Pai)</h4> <h6>OneDegree <span style="display:;">/</span> Principal Site Reliability Engineer</h6> <div><p>前端開發圈故人，現職為 OneDegree SRE，承繼了前端工程師的特性，新架構、新工具和新領域都是我的養分，目前對 AI 有濃厚的興趣，同時也邊開發一些自用（無用）小工具。「Enjoy coding then enjoy life」-- Tony Pai</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div><div>#Generative AI</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>如何從網頁前端到 React Native</h3></div> <div><p>作為一名網頁前端工程師分享如何使用 HTML、CSS、JavaScript 和 React 知識來開發 React Native 應用，並談論這些技能如何轉換到移動應用開發的情境中，過程中面臨的挑戰和解決方案。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/c08fca5c-1674-4612-adef-c47f8129f9be.jpg" alt=""></div> <div class="col-md-9"><h4>朱章祺 (Bucky Chu)</h4> <h6>五倍紅寶石專業程式教育機構 <span style="display:;">/</span> 前端工程師</h6> <div><p>來自五倍紅寶石的前端工程師，擅長 JavaScript、Vue、React，以及 React Native。對於學習新知充滿熱忱，不僅什麼都有興趣，還常常自我挑戰，例如成功完成了鐵人賽並深入介紹 Rust。此外，在團隊合作和專案管理方面亦有豐富經驗，以實際應用為出發點，注重程式碼的可讀性和可維護性。將會從前端工程師的視角分享開發手機 app 的實際案例和經驗，期待與大家一起交流學習。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#React Native</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>WebAssembly 是全端的好選擇嗎?</h3></div> <div><p>身為全(後)端或是對前端不熟的你，在選擇前端技術上，是否常常卡住，不知道該如何選擇</p>\n\n<p>現在有了 WebAssembly 讓全(後)端，看起來能讓對前端不熟的你快速應用，但實際上你真的需要嗎，還是說只是為了跟上潮流而已?</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/1a99a69c-763c-4bf9-abbb-c4161c528bd4.jpg" alt=""></div> <div class="col-md-9"><h4>何家名 (Jimmy Ho)</h4> <h6>資通電腦 <span style="display:;">/</span> 經理</h6> <div><p>我是 Jimmy 在開發技術上從前端Angular/React/Blazor 到後端 Dotnet，甚至 Cordova/Flutter 手機的應用也都碰，更不用說開發維運這方面的應用。</p>\n\n<p>什麼都碰什麼都學，熱愛學習、分享的網頁工程師。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>生成式 AI CodeGPT 開發經驗談</h3></div> <div><p>相信大家對 ChatGPT 不會很陌生，這是目前在生成式人工智慧 (AIGC: AI Generated Content) 內的當紅炸子雞，然而 ChatGPT 對於軟體工程師有什麼影響呢？能否透過 ChatGPT 改善團隊流程或協助開發？而我現在想到最直接的就是用 ChatGTP 幫忙寫 Git Commit Message，然而怎麼把 Commit Message 寫好可以參考這篇文章，為了能達成這目的，我用 Go 語言寫了一個 CLI 工具 CodeGPT (請大家幫忙分享)，來協助軟體工程師整理開發內容。</p>\n\n<p>其實在 GitHub 平台上面已經有超多這樣類似的工具可以使用了，而我為什麼要再重新開發一次呢？第一個原因是跨平台，透過 Go 語言可以快速產生執行檔，避免不同平台還要安裝不同的環境，這樣對於不熟環境的開發者可以更容易安裝。</p>\n\n<p>第二個原因是未來規劃朝向整合 GitHub, Gitea 或 Bitbucket 等 Git 平台，發 PR 後，可以透過 ChatGPT 自動幫忙整裡 Commit 內容且自動留言。所以這工具不只是單純讓開發者可以自行產生 Commit Message 而已，未來也會整合成容器化服務，協助進行 Code Review。</p>\n\n<p>第三個原因是未來不只是接 OpenAI 的 API 而已，ChatGPT API 目前也已經在 Azure OpenAI Service 支援了，所以之後除了原本的 OpenAI 外，還會整合微軟 Azure 服務。</p>\n\n<p>專案網址: https://github.com/appleboy/CodeGPT</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/c799f22e-4f3b-47d0-84b2-694d9bb6944d.jpg" alt=""></div> <div class="col-md-9"><h4>吳柏毅 (appleboy)</h4> <h6>聯發科技 <span style="display:;">/</span> 工程師</h6> <div><p>服務於聯發科技，擔任後端工程師。長期貢獻於 Open Source 專案，熱愛開發程式。目前為數個 Go 專案開發及維護者，推動 Gitea Action 開源 CI/CD 流程。</p>\n\n<p> Blog: https://blog.wu-boy.com/</p>\n\n<p> GitHub: https://github.com/appleboy</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#DevOps</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>給開發者的進階網路爬蟲開發之旅</h3> <div><p>網路爬蟲一直以來對於開發者是一個課題，同時也是難題，課題上來說，許多開發者都已經知道如何開發簡易網路爬蟲來去收集想要的資料，以及簡易的繞過網路爬蟲機制；難題是，隨著網站開發與網路技術的演變，擋爬蟲機制方式也越來越多元與棘手，本議程，講者會帶領開發者走訪許多的案例，從簡單的案例開始再到進階的案例（以進階案例為主），並帶到很有名的網站，或是「資本額」很高的網站，帶領各位開發者在網路爬蟲開發這條路上走得更高、更遠。</p>\n\n<p>透過工作坊的形式，實際帶領聽眾走訪幾個「資本額」很高的網站、以及它們神奇的擋爬蟲與應對技巧。</p>\n\n<p>備註：</p>\n\n<p>大部分範例皆需要有網路或是特殊環境，若場地網路或是環境有問題，則以講者展示解說為主。</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><ol><li>了解當前擋爬蟲機制有哪些新的技術與方法。</li><li>了解有什麼方法可以繞過擋爬蟲的技術與開發的應對方法。</li><li>了解爬蟲開發的工具，除了一般的HTTP客戶端工具之外，還有瀏覽器與無頭瀏覽器等。</li><li>了解「資本額」很高或是有名的網站有哪些擋爬蟲機制與應對的開發方法。</li><li>在演講中的範例程式碼會公開給聽眾們參考。</li><li>針對PHP、Python與JavaScript的開發者們找到適合與對應的爬蟲開發工具實做應對的方法。</li></ol></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/3a9fe073-8694-43b9-abff-2e7cee1d447f.jpg" alt=""></div> <div class="col-md-9"><h4>李昀陞 (Peter)</h4> <h6>財團法人資訊工業策進會 / 工程師</h6> <div><p>在 GitHub 上代號為 peter279k，不過大家都叫我 Peter。先前在工研院資通所擔任副工程師，主要研究智慧電網與應用 IT 技術協助台灣電力進行電業轉型，目前在資策會數轉院擔任工程師，目前主要研究資料庫與軟體開發技術應用到醫療健康與碳排等領域中。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Software development</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>自在切出好版面</h3></div> <div><p>怎樣才叫做好的版面？怎麼切才好？如何才叫做會切版？這些都是 Amos 經常都被問到的問題，你也有相同疑問嗎？今天就一起來聊聊自在切出好版面吧！</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2021/9/10/82b5e1de-6d98-4b61-a1a9-8499d2e7261b.png" alt=""></div> <div class="col-md-9"><h4>李建杭（Amos）</h4> <h6>五倍紅寶石程式資訊教育 <span style="display:;">/</span> 前端講師</h6> <div><p>從視覺設計轉職前端的斜槓開發者與專職講師，知名的【金魚都能懂】教學系列作者。2018 年再斜槓成為 Youtuber，致力於使用簡單易懂的方式讓新手能夠輕鬆學習前端開發技能。連續兩年獲得iT邦幫忙鐵人賽冠軍及一個佳作。</p>\n\n<p> Youtube 頻道 http://www.youtube.com/c/csscoke</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title">適合聽眾</div> <div>#Look &amp; Feel</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>人工智能之下的敏捷開發</h3></div> <div><p>人工智能對敏捷開發的影響是甚麼? 是好還是壞呢? 它能夠協助工程師提升coding 的效能及品質，讓我們可以更快的完成任務，但這並不意味著工程師在過程中學到了更多的東西。而我們是否真正地學到了也是一個問題，過去面對問題的方式，和擁有人工智能的協助後面對問題的方式，諾大的差異對敏捷開發而言是好是壞呢? 我們應該如何調適才能更好的實踐敏捷呢?怎麼做才能獲益更多呢? 這是本 session 所要探討的。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/3f842fd5-f229-421c-92da-1547118d9910.jpg" alt=""></div> <div class="col-md-9"><h4>李智樺 (Ruddy 老師)</h4> <h6> <span style="display:none;">/</span> 敏捷顧問</h6> <div><p>具有超過40年的工程師經歷，擅長帶領研發團隊開發，著作有:精實開發與看板方法、Windows Azure雲端開發、WF工作流程引擎程式設計、微軟 VSTS 開發實戰等書。為專業的軟體工程顧問、Scrum及看板課程教學的講師。為經常往返於二岸的精益佈道師。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Collaboration</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#經營決策者（Decision makers）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>程式碼中的隱形陷阱：開發者的安全挑戰</h3></div> <div><p>在當今數位世界中，軟體開發不僅僅是一門技術，更成為了我們生活和工作的核心。然而，隨著軟體應用程式的普及，資安風險也水漲船高。這場演講深入探討了一個關鍵問題：當開發者在設計和編寫軟體時忽略資安問題，他們可能設下了什麼樣的「隱形陷阱」？</p>\n\n<p>演講將揭示開發者在軟體開發過程中可能犯下的資安錯誤，以及這些錯誤如何為駭客提供利用的機會。在這個演講中，我們不僅僅停留在理論層面，更會分享實際案例，這些案例在實際應用中導致了資安漏洞的發生。</p>\n\n<p>此外，我將向各位開發者介紹開源軟體工具，這工具可以幫助您進行原始碼檢測，無論您是個人開發者還是尋求節省檢測成本的組織。</p>\n\n<p>這場演講將帶領您深入探索軟體開發的神秘世界，揭示開發者在面對資安挑戰時所面臨的挑戰，以及如何盡量避免這些隱形陷阱。透過深入的案例分析和實用建議，我們將幫助開發者更好地理解開發安全程式碼的重要性，以大幅減低應用程式成為駭客攻擊目標的風險。</p>\n\n<p>讓我們一同揭開這些「隱形陷阱」的神秘面紗，並學習如何在數位世界中保護您的程式碼和數據。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/1e0eb10a-f01d-44d4-812e-d73fed8283d7.jpg" alt=""></div> <div class="col-md-9"><h4>沈宜婷 (Noflag)</h4> <h6>中華資安國際 <span style="display:;">/</span> 資安工程師</h6> <div><p>目前在資安行業有兩年多，除了本身公司的業務外，也有在成大金融資安實驗室做研究和Google Developer Group 擔任Organizer</p>\n\n<p>主要研究的項目有網路安全、應用程式安全檢測、車聯網資安..，平時也會常到不同的場合演講、參與社群活動、主辦活動，在工作之餘，喜歡利用時間進行不同的研究項目，並挖掘各種平台的資安漏洞</p>\n\n</div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Security</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#新人（Newcomer）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>易用性測試-你的程式不在乎使用者，所以你的使用者不在乎你的程式</h3></div> <div><p>把程式與功能做出來，與做出來讓使用者感到好，其實有一段距離，問題是，怎麼去定義「好」?</p>\n\n<p>演講會分享一些經驗、作法、與錯誤做法。</p>\n\n<p>協助你釐清好的階段、定義與實際作法。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/27/0ded973a-d1f7-4f67-8a9f-def5be0f959d.jpg" alt=""></div> <div class="col-md-9"><h4>卓致遠（卓學長）</h4> <h6>致遠體驗設計 <span style="display:;">/</span> 創辦人</h6> <div><p>被媒體說是「幫唐鳳改變報稅系統的酸民」；被 UX 圈的朋友叫「卓學長」，不是因為像是權威，可能是因為比較親切；被同事說是「愛碎碎念，但重視員工學習重於專案的老闆」；被學生家長說是「厲害的老師」後覺得自己做得很差，因為覺得老師應該是把同學變厲害，而不是讓同學覺得老師很厲害。 受David 龔導演啟發後，一直致力於把知識運用在專案、把專案整理出知識、把知識變簡單地講給別人聽，讓更多人將換位思考運用在更多地方。</p>\n\n<p><strong>專長</strong></p>\n\n<p>UX設計、服務設計</p>\n\n<p><strong>感興趣的事物</strong></p>\n\n<p>研究知識如何運用，或者當貓奴</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#UI/UX</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Heptabase from 0 to 1</h3></div> <div><p>新創團隊的每一步都充滿著不確定性，在從 0 到 1 的過程當中，如何兼顧用戶的需求與期待、工程的開發成本、產品迭代速度不是一件容易的事情。在這場演講中，我們將分享在 Heptabase 中，產品開發模式、工程原則與各種功能開發的評估方式與實作的歷程。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/a5d4d2a1-f16e-4eb1-a286-b54fde700b85.jpg" alt=""></div> <div class="col-md-9"><h4>詹雨安 (Yu-An Chan)</h4> <h6>Heptabase <span style="display:;">/</span> Co-founder and CEO</h6> <div><p>Heptabase 創辦人，熱愛學習和做研究，希望能打造全世界最好用的工具和知識網路來幫助大家學習和做研究。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/5b4d6765-4c41-4203-a1aa-d04f9aae2f84.jpg" alt=""></div> <div class="col-md-9"><h4>王祐崙 (Yu-Lun Wang)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>目前任職於 Heptabase，之前在資安公司負責資料視覺化的相關開發，喜歡研究各種技術以及在新創從 0 到 1 打造產品的過程。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/4a5377e3-938e-4cee-a2bb-2d6a0537fe11.jpg" alt=""></div> <div class="col-md-9"><h4>周玉鑫 (Yu-Hsin Chou)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>熱愛研究各種不同的軟硬體技術，從系統底層利用 C 開發簡易 OS kernel，到有複雜交互行為需要考慮的文本編輯器。曾於 Amazon Ring 實習，目前在 Heptabase 協助前後端與手機 app 的開發，喜愛在新創實踐從零到一的過程，運用自身的技術能力做出用戶喜愛的產品！</p>\n\n<p><br></p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>數位發展部導入自然人憑證無密碼驗證與零信任</h3></div> <div><p>暨數位發展部掛牌以來就全面導入零信任，並逐步完善驗證機制，數位發展部透過整合行動自然人憑證、自然人憑證卡做到所有數位發展部員工使用無密碼驗證，取代原本密碼驗證機制，將說明如何逐步導入驗證，對系統進行調整，並整合零信任方案，沒有密碼就不怕被偷走。參考新聞：https://technews.tw/2023/08/15/tw-fido/</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/8/4/d5f830ca-0047-41a2-846f-3ff81b12d2fe.jpg" alt=""></div> <div class="col-md-9"><h4>周詳</h4> <h6>數位發展部 <span style="display:;">/</span> 解決方案架構師</h6> <div><p>任職於數位發展部資訊處，專注於為機關導入DevOps、Kubernetes、Cloud Native、Zero Trust等新技術。以過去Web開發經驗協助政府機關與廠商進行技術轉型，強化網站韌性與可用性。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Security</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#經營決策者（Decision makers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>利用AI來增加你的開發效率吧！</h3></div> <div><p>今年迎來AI大爆發的一年，身為開發人員的我們或多或少也有透過各項AI來輔助工作內容，本次議程，將帶大家使用Github Copilot與ChatGPT進行開發流程，透過各種使用訣竅，感受透過AI帶來的效率提升</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/1ebafe0a-98de-4395-be5f-7ba98524f0b9.jpg" alt=""></div> <div class="col-md-9"><h4>林正祥 (ATai)</h4> <h6>旭謙國際 <span style="display:;">/</span> 技術總監</h6> <div><p>林正祥 ATai Lin</p>\n\n<p>樂於研究與分享新技術，喜歡使用各項網頁技術解決各項問題。</p>\n\n<p>主要專研.NET相關solution為主，以及Angular &amp; Vue.js等前端技術，並在第十二屆iT邦幫忙鐵人賽中的Modern Web組獲得佳作。</p>\n\n<p>於2021年出版 ASP.NET Core 6 實戰守則：超易懂的跨平台開發入門教學，並榮登天瓏年度排行第二名</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Soft Skills</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>詠唱(prmopt)協同程式開發工作坊</h3> <div><p>現在正是 AI人機協作的轉折點，古人說過：「業精於勤，荒於嬉」，意味著只有勤奮才能精通工作，而荒廢則會失去所學。然而，在未來，不論你再怎麼勤奮，都很難超越人工智慧的表現。因此，必須改變工作思維，以應對未來的挑戰。以後很有可能大部分的工作流程都會變成：</p>\n\n<ol><li>專注於「問題/需求」的確認。</li><li>利用「運算思維」拆解問題及需求。</li><li>藉由「詠唱」和 AI 人機協作。</li></ol>\n\n<p>之於上述， AI人機協作在各種專業之下普及應用後，一定會有行業或工作消失是肯定的。 但筆者相信會有更多的，新的商業模式及工作問世，也會是真的。而如何懂得 AI 會用 AI ，才是我們該關注的重點。要會用 AI ，就一定要懂得運算思維，懂得運算思維，才能詠唱清楚，釋放生產力。</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><p>在參加「詠唱(prmopt)協同程式開發工作坊」後，聽眾可以期望獲得以下的收穫：</p>\n\n<ul><li>理解AI人機協作的重要性：聽眾將深入了解為何在當今時代，AI人機協作是不可或缺的，以及它如何改變我們的工作和生活。</li><li>掌握問題和需求的確認技巧：聽眾將學習如何更有效地確認和定義問題或需求，這是成功應用AI和協同工作的基石。</li><li>運算思維的培養：通過實際案例和練習，聽眾將學習運算思維的核心概念和技巧，以及如何將其應用於問題解決和創新思考。</li><li>詠唱技巧的練習：聽眾將學習如何通過「詠唱」與AI進行更有效的協作，包括如何清晰地表達需求和指示，以及如何解讀AI的回饋。</li><li>實際操作經驗：聽眾將有機會親手操作，實際體驗如何與AI協同工作，並透過實作解決實際問題。</li><li>了解新的職業機會：聽眾將了解AI人機協作所帶來的新職業機會和商業模式，以及如何為這些新機會做好準備。</li><li>建立網絡：在工作坊中，聽眾可以與其他具有相似興趣和目標的人建立聯繫，這對於建立專業網絡和探索合作機會非常有價值。</li><li>提升適應力：透過了解和掌握AI人機協作的技巧，聽眾將能夠更加適應快速變化的科技環境，並在職業生涯中保持競爭力。</li></ul></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/8adfe333-8802-4591-8646-9b944e34727f.jpg" alt=""></div> <div class="col-md-9"><h4>林建宏 (Wolke Lin)</h4> <h6>Soho / Developer</h6> <div><p>Line Api Expert / Google Developer Expert ；</p>\n\n<p>- 2019年 執行全台 30 場實體工作坊，上千開發者參與。</p>\n\n<p>- 2020年 因 covid-19 改做線上課程，上百好評熱賣中。</p>\n\n<p>- 2021年 意外受傷，躺了半年，歸零學習。明白一切皆因緣俱合罷了；現安住「覺察」與你我修行人間道中。</p>\n\n<p>- 2023年 以書與你相會。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div><div>#Generative AI</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Three.js實現ROS虛實環境監控系統</h3></div> <div><p>1.What is ROS and Three.js</p>\n\n<p>2.Figma設計Digitaltwins虛實整合介面</p>\n\n<p>3.機器手臂六軸與控制</p>\n\n<p>4.Three.js + Vite架構 (虛擬畫面)</p>\n\n<p>5.WebRTC bind IP cam (實體畫面)</p>\n\n<p>6.透過Rosbridge與ROS cluster整合</p>\n\n<p>7.透過PROS API整合(簡單介紹PROS系統)</p>\n\n<p>8.結論</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/b2c4b39c-15fe-4d41-aacb-64a0eac59f43.jpg" alt=""></div> <div class="col-md-9"><h4>邱文淇 (Ivan)</h4> <h6>PAIA帕亞科技股份有限公司 <span style="display:;">/</span> 資深技術經理</h6> <div><p>曾經在各大公司出沒，目前在PAIA專注於遠端協同、產學合作、敏捷思維、團隊領導與前後端技術的研究、創新、與導入。對於多媒體融合、跨領域職能協同合作有相當豐富的經驗，自許成為年輕人的心靈導師。</p>\n\n<p><br></p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/52ca692e-4a41-4b0d-a885-f9d48e3063b8.jpg" alt=""></div> <div class="col-md-9"><h4>曾哲瀚 (小白)</h4> <h6>PAIA帕亞科技股份有限公司 <span style="display:;">/</span> 前端工程師</h6> <div><p>現任 PTWA 工程師、台南市青年委員、S2 SCIST 資訊社群總召、全民運動會體育選手、誤入新創的斜槓高職生。目前正專注學習 UI UX 設計、前後端技術、資訊安全（CTF）、組織及團隊領導、新創經驗、公共事務參與。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#設計師（Designer）</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Go Ｘ 今天來談談 web 後端 APP</h3></div> <div><p>1. 用Gin來建立 RESTful API : 快速搭建一個基礎的 Gin</p>\n\n<p>2. 如何建立路由 : 基本的路由設置</p>\n\n<p>3. 後端的開始- CRUD : 使用Gin實現 CRUD 操作</p>\n\n<p>4. 連接資料庫與 ORM : 簡介 GORM 以及如何與 Gin 結合使用</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/188655d9-21eb-4b44-aea9-5a4450fe8c0b.jpg" alt=""></div> <div class="col-md-9"><h4>邱暐淙 (TedxTed)</h4> <h6>恩沛科技 <span style="display:;">/</span> 系統工程師</h6> <div><p>一個正在煉成的新手後端工程師，每天花數小時不斷地投入原料自我煉成，歷經過多次煉成失敗，甚至失敗是正常的進行式</p>\n\n<p>只是對於我，我願意忽略那些失敗的原料，繼續投入，繼續煉成出身自ROR工程師，希望能煉成全世界</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>入門Django並打造具AI服務的網站</h3> <div><p>Django 是 Python 最主流的網頁框架之一，其 batteries included 的設計哲學，可以幫助開發者快速打造功能完整的網站。本次工作坊會從頭介紹起如何建立 Django 專案，並包含最基本的 MTV 架構介紹、虛擬環境設立、路由、資料庫、admin 後台等等的功能。並且會帶領大家善用 Python 本身龐大的 AI 生態系，做出一套具有 AI 服務功能的網站。開發環境會使用 VS code，並建議有基本的製作網站的能力。</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><p>上完這門工作坊課程，可以幫助學員了解 Django 的架構與設計，能打造基本的 Django 網站，並且可以整合 AI 服務至網站中。</p></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <h5 class="sub-title"><br>課前準備</h5> <div><p>需要先行安裝 VS code，git ，python 等必備的工具與程式語言</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/6f955125-7f49-4888-be1b-0eaa70d1c5e4.jpg" alt=""></div> <div class="col-md-9"><h4>柯克 (Ko Ko)</h4> <h6>電信公司 / Microsoft AI MVP</h6> <div><p>Ko Ko 是微軟 AI 領域的最有價值專家(Microsoft AI MVP)，同時也是台灣知名的講者。 他在許多技術年會擔任過講者，包含了 COSCUP、 .NET Conference、ModernWeb、PyCon APAC、PyCon HK, DevDays Asia 等等的國際型大型年會，累計已超過萬名聽眾。 他熱愛向聽眾分享他的經驗與所學，並且相信這樣分享的過程中能讓彼此都更進步。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    進階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#新人（Newcomer）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>langchain  起手式</h3></div> <div><p>1.介紹 langchain 的概念</p>\n\n<p>2. 關鍵的langchain模組的原理與原碼細節（只會稍帶幾個重要的部分）</p>\n\n<p>3. 如何快速搭建應用情境</p>\n\n<p>4. drag&amp;drop 的 langchain POC平台與如何客製化</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/a0218308-d19c-4c6e-9cfd-acfe3b8869e0.jpg" alt=""></div> <div class="col-md-9"><h4>段喬智 (George)</h4> <h6>LINE <span style="display:;">/</span> Engineer Lead</h6> <div><p>我待過 IBM, Mozilla, 和 LINE，電子工程系畢業，第一份工作是硬體工程師和專案經理，後來太想做自己會用的東西，靠自修轉職做前端工程師，爾後帶領前端團隊，最近開始帶台灣的區塊鏈團隊並開始深度參與公司的生成式AI的應用領域。我很享受在大公司裡面不受限的嘗試各種新技術，以及和不同領域的人碰撞不同思維。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div><div>#Generative AI</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#非IT部門（Non-IT）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>以 Serverless 技術打造 Podcast 官網及統計分析後台</h3></div> <div><p>2022 年與 Kotlin User Group 的夥伴們一起開始錄製《Kotlin 爐邊漫談》Podcast 節目，為了儘可能地滿足各地中文開發者的收聽習慣，節目推出後發佈在多個不同平台，包括 YouTube、BiliBili、喜马拉雅、荔枝、蜻蜓、Google Podcast、Apple Podcast…等。為了讓主播群能了解各集節目在不同平台上的聽眾反應，我們以 Kotlin 打造了網路爬蟲，可定期去各平台網頁抓取聆聽資料，並將蒐集後的數據整合進自製的統計分析後台，同時使用 Astro 框架依後台 API 產生前台網站，全部皆以開源技術實作並以 Serverless 方式部署在 Google Cloud Platform 上。在這場分享裡，將會分享整個開發過程中學習到的經驗及成果。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/78d38cfe-76c0-4ea7-af47-f8d080ae4975.jpg" alt=""></div> <div class="col-md-9"><h4>范聖佑 (聖佑)</h4> <h6>JetBrains <span style="display:;">/</span> Developer Advocate</h6> <div><p>JetBrains 技術傳教士，負責推廣 JetBrains IDE 及 Kotlin 程式語言。平時醉心於技術研究，歷任軟體公司設計師、開發者及研究員，致力於將複雜的技術名詞用通俗易懂的方式讓新手也能吸收。工作之餘也是多年技術社群志工，積極參與 Kotlin 社群運作。自 2020 年以來與 Taiwan Kotlin User Group 合作，陸續舉辦 Kotlin 讀書會、練功場及 Kotlin 中文開發者大會，並每年號召夥伴一起參與 iT 邦幫忙鐵人賽，享受互相推坑填坑的樂趣。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Serverless</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#經營決策者（Decision makers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>以Rust為湯頭的軟體系統開發實踐</h3> <div><p>解構跨平台應用軟體開發問題, 分析多種程式語言以及特定項目評測; 參與者可以透過工作坊的演說以及練習中, 獲得多種程式語言開發之經驗談, 並從0到1實作出可用的跨平台程式.</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><ul><li>Empower the audience have ability to create a new Rust library, CLI app from zero to one.</li><li>Build the mindset of software development.</li></ul>\n\n<ol><li>了解目前熱門WebFrameworks效能上的差異</li><li>快速認識多種程式語言特性</li><li>了解如何交付核心函式庫給多個產品開發團隊, 並確保商業邏輯一致性</li><li>了解如何快速上手Rust(初學)</li><li>既有熱門程式語言學習曲線分析</li></ol></div> <h5 class="sub-title"><br>課程綱要</h5> <div><ul><li>&nbsp;Introduction</li></ul>\n\n<ol><li>Speaker introduction</li><li>Workshop objectives &amp; what will you experience?</li><li>Problem identification</li><li>How it matters?</li></ol>\n\n<ul><li>Understanding Cross-Platform Development with Rust</li><li>Setup the development environment</li><li>Sharing &amp; Principles</li></ul>\n\n<ol><li>WebServer benchmark testing</li><li>Programming paradigms &amp; comparison table</li><li>Diagrams of learning curves</li><li>Refer - EnergyEfficient</li></ol>\n\n<ul><li>Introduction to cross-platform development</li><li>Handling platform-specific features</li><li>[Practice I - Create a simple CLI program]</li><li>[Practice II - Create a image library]</li><li>[Practice III - Deliver a WASM Program]</li><li>[Practice IV - Deliver a library for backend service]</li><li>[Practice V - Make the CLI program pluggable]</li><li>Q&amp;A session</li><li>Conclusion</li></ul></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/2db5f63e-e774-461e-a5b3-86919690193a.jpg" alt=""></div> <div class="col-md-9"><h4>徐紹銘 (三米克)</h4> <h6>ViewSonic / Senior Software Developer</h6> <div><p>從線上遊戲作為起點, 大學使用Java/C#做線上遊戲, 而後組隊參加Indie games入圍.在軟體工程領域打滾多年, 認為好的軟體設計來自於相信科學.第一份工作在B2B儲存系統廠從0到1交付新的雲端空間管理服務; 而後在教育科技解決方案公司, 從0到1交付兩個軟體系統.自學超過15個程式語言. 目前專注於Elixir以及Rust程式語言.</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    進階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>小公司導入 ISO27001 的辛酸血淚史</h3></div> <div><p>經營三四年、不到 20 人的團隊，擁有各種技術債與黑魔法的情況下要如何導入 ISO27001 資安管理標準呢？從管理面、技術面、行政面的角度跟大家分享心路歷程，讓大家在軟體開發的過程中能夠稍微意識到這些資安管理規範，未來如果要導入時也能平平安安（？</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/af7844b4-e9f8-47d8-a5ba-8fcf8feba246.jpg" alt=""></div> <div class="col-md-9"><h4>徐愷 (KK)</h4> <h6>適才科技 <span style="display:;">/</span> 技術長</h6> <div><p>喜歡科技新知與技術，常常搞一些有的沒有的活動與企劃，希望讓大家享受交流！</p>\n\n<p>* 做過業務、設計、行銷與管理的多角工程師</p>\n\n<p>* 喜歡參與社群到舉辦社群，最後成立了協會與開了一家咖啡廳</p>\n\n<p>* 愛好調酒，特別喜歡 after party 與 ama 形式，甚至弄了小酒吧</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Security</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#經營決策者（Decision makers）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>前端也有Design Patterns</h3></div> <div><p>當提到軟體開發的Design Patterns時，人們通常會聯想到後端開發。然而，隨著前端網頁複雜性的增加，我們需要更好的來管理與維護程式碼。設計模式不僅僅適用於後端領域，在前端開發中同樣扮演著重要的角色。本議程將介紹幾個前端常見的Design Patterns以及其使用時機。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/6cb7a211-b466-43bc-b193-fb9fd8dbbd6c.jpg" alt=""></div> <div class="col-md-9"><h4>翁菁美 (Nina)</h4> <h6>史詩科技 <span style="display:;">/</span> Software engineer</h6> <div><p>- 六年的前後端經驗的軟體工程師，能夠站在設計師或前後端等不同角度思考。</p>\n\n<p>- 熱衷學習新技術與討論。</p>\n\n<p>- 專注於建構可擴展、易於維護且符合商業需求的軟體架構。</p>\n\n<p>- 過去常常潛水看很多大神的文章長大，現在想試著回饋一下社群，分享自己所學。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#TypeScript</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>模組化前端開發：從亂七八糟到組織有序</h3></div> <div><p>JavaScript 一開始並沒有模組化的概念，隨著專案越來越複雜，模組化的設計已變成硬需求，於是模組化由社群自行發起到最後正式納入 ES6 的規格，直到現在各主流瀏覽器普遍支援，走了很長一段路。</p>\n\n<p>在模組化的過程為了相容各家瀏覽器，許多像是 Webpack 或是 Parcel 之類的 bundle 工具因應而生，直到瀏覽器原生支援 ES Module，因為生態的變化而又有一些新興的前端工具產生（例如 Vite）甚至是免打包的 importmap。</p>\n\n<p>大綱：</p>\n\n<p>-模組化歷史簡介</p>\n\n<p>-這些打包工具背後到底做了什麼事？</p>\n\n<p>-Webpack、Parcel、Vite</p>\n\n<p>-不打包的 importmap 怎麼做事的？可靠嗎？</p>\n\n<p>-該怎麼選擇？</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2021/9/9/af03f163-c44e-412f-a648-603666edd314.jpg" alt=""></div> <div class="col-md-9"><h4>高見龍</h4> <h6>五倍紅寶石程式資訊教育股份有限公司 <span style="display:;">/</span> 負責人</h6> <div><p>網站程式開發者 / 講師 / 遊戲宅 / 漫畫宅，喜愛非主流的新玩具。個性愛現，所以學會新把戲就迫不急待想跟大家分享。著有《為你自己學 Git》以及《為你自己學 Ruby on Rails》等暢銷書籍。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>領域驅動設計應用與實踐</h3></div> <div><p>這個演講旨在介紹領域驅動設計（Domain-Driven Design，簡稱DDD）的概念以及它在建構高效應用程式中的重要性。在現代軟體開發中，持續演進的需求、複雜的業務邏輯和多樣化的使用者需求，都使得應用程式的開發變得愈來愈複雜。而DDD正是一種優秀的方法論，能夠幫助開發者更好地理解並應對這些複雜性。</p>\n\n<p>在演講中，我將深入探討以下主題：</p>\n\n<p>1. DDD的基本概念：介紹DDD的核心思想、基本概念和術語，例如聚合、實體、值對象和領域服務，以及它們之間的關聯。</p>\n\n<p>2. 模型驅動開發：解釋如何通過建立富有意義且具有彈性的領域模型，來驅動應用程式的開發和設計。</p>\n\n<p>3. 領域專家參與：強調領域專家在DDD中的角色，並探討如何與他們密切合作，以確保產品的成功。</p>\n\n<p>3. 聚焦於業務價值：強調DDD如何幫助開發團隊聚焦於業務價值，以及如何在複雜的技術挑戰中維持對業務需求的關注。</p>\n\n<p>4. 實際案例研究：分享實際案例，展示DDD在不同領域的成功應用，以及透過DDD如何解決了具體的開發挑戰。</p>\n\n<p>透過這場演講，參與者將獲得對領域驅動設計的深入了解，並了解如何應用DDD來改進應用程式的設計、開發和交付流程，從而建構更具彈性、高效和符合業務需求的軟體系統。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/cac1f82a-77f6-4962-b857-565fa2f4a5eb.jpg" alt=""></div> <div class="col-md-9"><h4>張國昭 (小張)</h4> <h6>IBM <span style="display:;">/</span> Application Architect Consultant</h6> <div><p>我是一位有著15年經驗的軟體工程師，專攻於網站開發的後端領域。在過去的職涯中，我熟悉敏捷開發方法並擁有豐富的專案管理經驗。此外，我也瞭解並實踐領域驅動設計（DDD）理念，藉此有效規劃產品並確保其高品質。我致力於在網站開發領域不斷進步，期待能在未來的挑戰中持續貢獻我的技能與知識。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    進階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div><div>#Domain Driven Design</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>哇嗚，原來 Vue.js 還能這樣寫！</h3></div> <div><p>Vue.js 3 正式推出至今已滿三年，在這期間，Vue.js 生態圈為開發者們帶來了多樣的創新功能，其中包括了如 Composition API、Pinia 以及 Vite 等強大工具。</p>\n\n<p>這些更新不僅代表了技術的進步，更使得開發者能夠更加流暢地建構優質的 Vue.js 應用。</p>\n\n<p>然而在本次的分享中，我並不打算回顧這些大家都知道的部分，畢竟那些東西你們自己看官網就有了。</p>\n\n<p>相反地，我想在這場議程與各位聊聊一些可能平常被忽略，但在開發實務上極其實用的小技巧，希望透過這次的分享，</p>\n\n<p>能幫助各位在開發 Vue.js 應用時更加得心應手，減少不必要的疑惑與出錯的地方。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/d7ab3a19-7596-4f87-bb96-ae9dd4f64d01.jpg" alt=""></div> <div class="col-md-9"><h4>許國政 (Kuro Hsu)</h4> <h6>Vue.js Taiwan <span style="display:;">/</span> 社群主辦人</h6> <div><p>前端開發者，Vue.js Taiwan 社群主辦人。長期專注網頁前端標準技術，也多次參與前端技術社群分享心得。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#Vue</div></li> <li><div class="title">適合聽眾</div> <div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>不要只當顧問，把 ChatGPT 變成你的員工</h3></div> <div><p>有時我們會問 ChatGPT 問題，然後按照他的建議去做。但如果可以叫 ChatGPT 直接去做事，那不是更好嗎？</p>\n\n<p>在這場演講中，我們會探討 ChatGPT 是如何思考、如何工作、如何作為一名代理人（Agent）。</p>\n\n<p>我會以案例說明 ChatGPT Plugin 如何達成與第三方服務的串接，並且實際介紹如何自己動手製作一個 ChatGPT Plugin，再展示如何透過 LangChain 實作一個 LINE Bot Agent。</p>\n\n<p>最後，我們會探索 Agent 如何真正為我們帶來自動化的魔力。準備好體驗語言模型與自動化的奇妙結合了嗎？一起跳入這場知識的冒險吧！</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/27/5c2044f0-294d-47a4-bada-d10468bbd141.jpg" alt=""></div> <div class="col-md-9"><h4>郭佳甯（卡米哥）</h4> <h6>誠品生活 <span style="display:;">/</span> 高級主任工程師</h6> <div><p>大家好，我是卡米哥，LINE 官方認證的 API 專家，LINE API Expert。「卡米狗」聊天機器人的作者。</p>\n\n<p>人人可作卡米狗：從零打造自己的 LINE 聊天機器人」一書的作者。目前在維護基於 Rails 的 LINE Bot 框架 Kamigo。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#經營決策者（Decision makers）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>有高層支持推動敏捷，難道事情就會順又少嗎？</h3></div> <div><p>自2020年疫情爆發前的VUCA時代，敏捷開發便受到許多注目，並且在軟體界開始發展實踐開來。到後疫情的BANI時代，為了面對非線性又無法預估的市場常態，對敏捷開發的關注與實踐，也開始在非軟體服務產業，包含硬體生產與傳統產業，逐漸擴展開來。</p>\n\n<p>這幾年在許多敏捷相關的聚會場合，常聽到在組織熱情推動敏捷的夥伴說：「我的老闆都不支持。」、「公司都不重視員工成長。」、「主管都不管執行品質只會壓時程。」、「PM需求一直開又常改。」，最後常有的結論是「如果公司高層支持推動就好了。」</p>\n\n<p>本次將透過講者實際經歷，分享當高層支持推動，甚至推動者就身處高層，是否一切就如同想像的美好？抑或是有其他的狀況發生呢？，而我們又該如何進行與因應，才能確保熱情不被打擊的推動敏捷，朝向真正公司、員工、顧客三贏的目標前進。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/4eb6dc06-cd08-4446-8336-f5eee227c8dc.jpg" alt=""></div> <div class="col-md-9"><h4>陳勉修 (Michael)</h4> <h6>樂屋網 <span style="display:;">/</span> 產品處  副總經理</h6> <div><p>現任 樂屋國際資訊 (股) 產品處 副總經理，以及 DDD Taiwan社群組織志工。 長期於矩陣式組織中，擔當Technical Leader、 People Manager 與Agile Coach多重角色。</p>\n\n<p>深感企業的永續經營，除了組織文化的持續變革外，支撐企業持續提供商業價值的關鍵，更是需要貼近商業領域流程的系統。要實踐如此特性的軟體系統，有賴於整體性的架構（Architecture）分析體現，而非單純功能式的結構（Structure）設計施作，因此持續投入產品需求與技術架構整合開發的探索與實踐。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#經營決策者（Decision makers）</div><div>#PM</div><div>#非IT部門（Non-IT）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>《運用Semantic Kernel SDK 駕馭生成式AI應用的提示工程(Prompt Engineering)》</h3></div> <div><p>生成式AI的回應品質，很大程度上取決於提示(prompt)的設計與運用。在簡單的應用場景中，提示的使用相對容易簡單，但在更複雜的情境下，則可能需要對提示進行細緻的拆解和調整，以便讓LLM模型的生成效果達到預期。因此，在生成式AI的應用開發中，如何將使用者的問題轉化為有效的提示，成為一個關鍵的技術挑戰。此外，開發者可能還需要整合企業內部的私有資料，或者使用外掛插件(Plugins)來增強LLM模型的能力。Semantic Kernel作為一個開源的SDK，就是為了解決這些挑戰而設計的。它以開發者的需求為出發點，提供了一個整合提示工程、記憶上下文、zero/few-shot學習、zembeddings等技術的開發模式，讓開發者能更方便、快速地打造出高效能的生成式AI應用。在這個場次我將實際示範如何運用 Semantic Kernel進行prompt改造、連結私有資料等應用。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/089d4115-d316-4a13-a2a1-ef4bb2dc8f74.jpg" alt=""></div> <div class="col-md-9"><h4>陳葵懋 (Ian Chen)</h4> <h6>一等一科技 <span style="display:;">/</span> 主任工程師</h6> <div><p>微軟 AI 人工智慧最有價值專家（MVP），同時也是微軟認證講師（MCT）。熟悉 .NET 開發、Azure 雲端、Azure OpenAI 與 Cognitive Services 解決方案，曾任微軟 TechDay、Devdays 等研討會講師。共同著作：駕馭 ChatGPT 4: 探索 Azure OpenAI 與 Cognitive Service for Language 開發實踐 （使用 .NET 與 Node.js）。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div><div>#Generative AI</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>從Node.js到Rust</h3></div> <div><p>- 為什麼不要 Node.js 了</p>\n\n<p>使用 Node.js 作為主要後端開發數年，最近開始覺得沒那麼好用了，尤其是在效能需求和微服務架構上，似乎是時候找更適合的繼任者，於是就一腳踩進了Rust的大坑．</p>\n\n<p>- Rust簡介</p>\n\n<p>簡單談談 Rust 這個語言的語法，以及與Node.js的異同．</p>\n\n<p>- Rust上踩的坑</p>\n\n<p>聊聊在使用Rust開發時常遇到的怪事．</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/b005fae0-e659-4ce2-809d-7a5ec1bc2461.jpg" alt=""></div> <div class="col-md-9"><h4>陳靖中 (Duye)</h4> <h6>ViewSonic <span style="display:;">/</span> Sr. Backend Developer</h6> <div><p>我一介草民工程師，高雄囡仔，北漂打工。寫寫Node之餘，偶爾也寫寫Rust。追逐浪潮的猴子，看看哪天會被拍死在沙灘上。從嵌入式系統開發到網路後端或網站前端等都為略懂，目前以建置 Microservice 為基礎的系統架構為主。對了，最近迷上手沖咖啡，雖然這跟 Web 沒什麼關係，但是很 Modern．</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Three.js實現ROS虛實環境監控系統</h3></div> <div><p>1.What is ROS and Three.js</p>\n\n<p>2.Figma設計Digitaltwins虛實整合介面</p>\n\n<p>3.機器手臂六軸與控制</p>\n\n<p>4.Three.js + Vite架構 (虛擬畫面)</p>\n\n<p>5.WebRTC bind IP cam (實體畫面)</p>\n\n<p>6.透過Rosbridge與ROS cluster整合</p>\n\n<p>7.透過PROS API整合(簡單介紹PROS系統)</p>\n\n<p>8.結論</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/b2c4b39c-15fe-4d41-aacb-64a0eac59f43.jpg" alt=""></div> <div class="col-md-9"><h4>邱文淇 (Ivan)</h4> <h6>PAIA帕亞科技股份有限公司 <span style="display:;">/</span> 資深技術經理</h6> <div><p>曾經在各大公司出沒，目前在PAIA專注於遠端協同、產學合作、敏捷思維、團隊領導與前後端技術的研究、創新、與導入。對於多媒體融合、跨領域職能協同合作有相當豐富的經驗，自許成為年輕人的心靈導師。</p>\n\n<p><br></p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/52ca692e-4a41-4b0d-a885-f9d48e3063b8.jpg" alt=""></div> <div class="col-md-9"><h4>曾哲瀚 (小白)</h4> <h6>PAIA帕亞科技股份有限公司 <span style="display:;">/</span> 前端工程師</h6> <div><p>現任 PTWA 工程師、台南市青年委員、S2 SCIST 資訊社群總召、全民運動會體育選手、誤入新創的斜槓高職生。目前正專注學習 UI UX 設計、前後端技術、資訊安全（CTF）、組織及團隊領導、新創經驗、公共事務參與。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#設計師（Designer）</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>給工程師的PM工作流</h3></div> <div><p>PART 1:從PM的角度看專案 - 認識商業邏輯的爸爸：商業價值</p>\n\n<p>1.確定專案目標和範疇：確保專案的目標與商業價值相符，並明確定義專案的範圍和限制。</p>\n\n<p>知道限制反而更自由</p>\n\n<p>目標管理：確保每個任務都與商業目標相關聯，並跟踪目標的實現情況。</p>\n\n<p>2.越早開始練習越好的商業面、決策面、管理面的考量和思維</p>\n\n<p>知道商業價值後更知道如何在對的地方用力</p>\n\n<p>3.持續改進：不斷評估和改善工作流程</p>\n\n<p>好的流程和制度能帶來的長期效益</p>\n\n<p>把事情做對並且越做越對</p>\n\n<p>PART 2:從流程看專案 - 「決策的藝術」</p>\n\n<p>1.「上帝視角」用俯瞰的方式在組織中釐清每個人的角色，擁有心中的OBS</p>\n\n<p>2.認清公司是一個獨裁的組織，老闆的意見才是唯一解，但在團隊內建立「共同決策的制度」也同樣重要</p>\n\n<p>PART 3:當工程師遇上PMP</p>\n\n<p>1.將PMP嚴謹的態度融入開發的工作流程</p>\n\n<p>2.對工程師來說也很好用的PM工具箱</p>\n\n<p>甘特圖、WBS、RACI圖、衝突管理</p>\n\n<p>PART 4:T型人才 : 工程師了解專案管理後可以達成更好的溝通</p>\n\n<p>PM的正確打開方式 - 十大知識領域拆解(名詞解釋&amp;帶你從PM角度走一遍專案)</p>\n\n<p>利害關係人、品質、資源、溝通、採購、範疇、風險、時程、成本、整合</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/7184a9cd-7397-40f7-87a7-d0ec3f72c164.jpg" alt=""></div> <div class="col-md-9"><h4>曾馨儀 (A5HL3Y)</h4> <h6>必礦科技股份有限公司 <span style="display:;">/</span> 區塊鏈工程師</h6> <div><ul><li>畢業於勤益科技大學文化創意事業系</li><li>在還不太會寫程式的時候意外拿到了前端工程師的工作，就此走上開發之路</li><li>跟前男友合作過一個NFT項目「迷失海龜」，從繪圖、智能合約到網站一手包辦，並面向1500人左右的DC社群進行區塊鏈技術的講解學習（雖然後來被劈腿了QQ）</li><li>現職為區塊鏈工程師斜槓PM</li><li>莫名擅長轉職：從設計跨到前端、前端跨到區塊鏈、再從區塊鏈跨到專案管理</li></ul></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Soft Skills</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#新人（Newcomer）</div><div>#老司機（Veteran）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>實戰 Angualr Signals</h3></div> <div><p>驚喜登場！Angular 16 推出全新功能：Signals！這個開發者預覽版已經引起廣大 Angular 開發者的熱烈討論。透過反應式程式設計 (reactive programming) 方式，Signals 將可輕易提升你的 Angular 應用程式效能，同時讓程式碼更易讀，而這一切都只需要改變一下開發過程的思維模式。</p>\n\n<p>這次的分享將帶你深入瞭解 Angular Signals 的重要概念和使用方式，並透過實際程式碼向你展示，當你轉換開發思維後，打造出來的 Angular 程式碼將變得如此簡單明瞭！如果你對 Angular Signals 或是 reactive programming 有興趣，都歡迎來聊聊</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/40a17c18-4819-4d6b-8055-4e21a637f063.jpg" alt=""></div> <div class="col-md-9"><h4>黃升煌 (Mike Huang)</h4> <h6>Angular Taiwan <span style="display:;">/</span> 打雜義工</h6> <div><p>Microsoft MVP、Angular GDE，主要熟悉 .NET WebAPI 與 Angular 開發技術，並經常於個人部落格分享學習知識。</p>\n\n<p>參加過四次 iT 邦幫忙鐵人賽，榮獲兩次冠軍與一次優選。並著有「打通 RxJS 任督二脈：從菜雞前進老鳥必學的關鍵知識」一書，該書曾榮獲 2021/8 繁體中文書 銷售排行 第 1 名！。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#Angular</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#新人（Newcomer）</div><div>#老司機（Veteran）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>AI解決不了的事，專案管理之通靈術</h3></div> <div><p>1. 就算有了AI，但依然找不到對的東西</p>\n\n<p>2. 如何尋找問題的核心</p>\n\n<p>3. 沒有預知，只是做了比較多的準備</p>\n\n<p>4. 決策中的設計模式</p>\n\n<p>5. 猜到，做到，意料之外</p>\n\n<p>6. 沒有人會這樣做的，真的嗎？</p>\n\n<p>7. 分析，整理，抽象，轉換，驗證</p>\n\n<p>8. 好的管理思維能通用到各行各業. 範例演練</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/a9e1de77-51a6-44f2-8df2-2e5c61b9c53d.jpg" alt=""></div> <div class="col-md-9"><h4>黃金鴻 (Kim)</h4> <h6>台積電 <span style="display:;">/</span> 副理</h6> <div><p> 1. 現任台積電前端工程師，前端技術專家</p>\n\n<p> 2. Ex-前街口支付、台灣線上串流影音、澳門娛樂集團等多家公司前端主管.</p>\n\n<p> 3. &lt;網頁就是疊出來的&gt; 作者，ModernWeb 2021 《當原子設計遇上網頁建構器》講者</p>\n\n<p> 4. 網路撰文轉閱率達百萬</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Soft Skills</div></li> <li><div class="title">適合聽眾</div> <div>#非IT部門（Non-IT）</div><div>#開發者（Developers）</div><div>#新人（Newcomer）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>一個敏捷實踐的誕生</h3></div> <div><p>一個敏捷實踐的誕生 An agile practice is born.</p>\n\n<p>在一個既有團隊的工作流程下，工作上總是令你有許多瓶頸與阻礙嗎？當我們進入到一個新團隊時，看到問題時，不應該只是在心中抱怨，該如何規劃並實踐敏捷方法，著手改變團隊工作效率，持續改善調整，最終把這些實踐傳承並保留下去，從各種不同的實踐案例著手，帶領聽衆一步一步的進入講者過去導入敏捷實踐所遇到的挑戰與困難。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/e552a6a5-6be2-426b-8832-2427c0bc5bd5.jpg" alt=""></div> <div class="col-md-9"><h4>黃冠中 (Aaron Huang)</h4> <h6>TSMC 台灣積體電路製造股份有限公司 <span style="display:;">/</span> Principal Engineer</h6> <div><p>超過 13 年軟體工程經驗，專注與前端架構與敏捷實踐，參與並領導過多個團隊的敏捷流程實踐規劃與導入，過往參與產品包含 MLOps Platform、大型售票系統、航運/教育領域之 Vertical SaaS 等團隊的前端架構與敏捷流程實踐，現爲臺積電智慧應用整合處研發資訊技術部(AAID - RDIT) 主任工程師，負責團隊技術架構與敏捷實踐轉型規劃。</p>\n\n<p>個人簡歷</p>\n\n<p>- TSMC, AAID - RDIT, Principal Engineer</p>\n\n<p>- GoFreight, Staff Engineer</p>\n\n<p>- InfuseAI, Agile Lead / Engineering Lead</p>\n\n<p>- KKTIX, Front-End Lead / Agile Lead</p>\n\n<p>- Faria Education Group, Front-End Lead</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#非IT部門（Non-IT）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Headless CMS 的前端應用</h3></div> <div><p>CMS (Content Management System)介紹 1. 能客製化，又能把製作網頁的工作交給客戶！ 2. CMS vs Headless CMS 3. Headless CMS 前端Repo範例 - Spartacus 4. CMS與前端效能的雙重挑戰 - 效能問題與處理思路分享</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/5665d81b-31d7-4ad5-9e39-bb23fc3736fc.jpg" alt=""></div> <div class="col-md-9"><h4>楊佳安 (Anna 佳安)</h4> <h6>Seidor APA 賽鐸臺灣 <span style="display:;">/</span> Lead Frontend Dev</h6> <div><p>使用 Angular 以及 CMS 系統工具製作跨國電商平台，努力拉近 UX 與實際網頁間的間距更靠近一些。面對汪洋般的前端的知識，慶幸自己不覺得累。目前寫的程式是能夠帶來成就感的工作，讓我覺得自己很幸運。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div><div>#Content Management System</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>人生奪還計畫</h3></div> <div><p>我只想提早下班吸貓：簡介低代碼平台與評估採用的理由</p>\n\n<p>Code to low code. - 使用Angular及AWS建造低代碼平台的架構</p>\n\n<p>我希望User也能準時下班 - 分享低代碼平台預期在公司（國泰世紀產物保險）的應用場景</p>\n\n<p>沒有最好，只有更好 - 後續的可能應用發展及規劃</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/353b76b4-4136-40af-a795-d80d285b7791.jpg" alt=""></div> <div class="col-md-9"><h4>熊庭緯 (小熊)</h4> <h6>國泰世紀產物保險 <span style="display:;">/</span> 前端開發小組研發人員</h6> <div><p>現任職於國泰產險中台開發科前端小組的研發工程師，主要使用Angular做前端網頁開發的工具。擅長的項目為資料視覺化，除了一般的專案開發以外，也有製作與維護前端套件，如圖表、行事曆、地圖等等，目前致力於開發低代碼平台。</p>\n\n</div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/31245ae2-65ce-4f3f-a08d-10ff4b28ae01.jpg" alt=""></div> <div class="col-md-9"><h4>楊勝堡 (湯姆羊)</h4> <h6>國泰世紀產物保險 <span style="display:;">/</span> 前端開發小組組長</h6> <div><p>在後端開發了10年後，一個不小心掉到前端坑裡，只好努力地生存下去。</p>\n\n<p>現任國泰產險資訊架構部擔任前端小組負責人，創建目前產險前端團隊，主要負責前端系統架構發展規劃/專案系統設計/人才培訓</p>\n\n<p>軟體開發資歷：</p>\n\n<p>1. 資策會雲端所(Java) - 協助產品開發</p>\n\n<p>2. 臺灣金融科技(Java) - 平台設計＆開發</p>\n\n<p>3. 國泰產險(Java, Angular) - 核心系統開發、前端技術導入暨發展規劃</p>\n\n<p><br></p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#經營決策者（Decision makers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>探索敏捷開發：啟發您的職場成長之旅！</h3> <div><p>為期100分鐘的冒險將帶領您探索敏捷開發的奧秘，不論您是否擁有相關專業背景，都將輕鬆領略其中的精華。這場工作坊都將為您揭示敏捷開發的奇幻面紗。這場工作坊將使您深入了解敏捷方法論的核心理念，掌握實用的敏捷開發技巧，並透過實際參與虛擬專案，親身體驗敏捷開發的過程和成果。無論您是哪一領域的征途者，我們誠摯邀請您一同探索這場精彩之旅！</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><p>在這個工作坊中，學員將學習敏捷方法論的概念和原則，了解敏捷開發的流程和方法，以及掌握在個人專案中應用敏捷開發的技巧。通過講解、演示、練習和討論等方式，讓學員全面了解敏捷開發的精髓。同時，學員還將有機會參與一個敏捷開發的小型虛擬專案，透過實踐來深刻體驗敏捷開發的過程與效果。</p></div> <h5 class="sub-title"><br>課程綱要</h5> <div><ul><li>活動介紹與破冰 (5分鐘)</li></ul>\n\n<p>簡短介紹本次工作坊內容和目標</p>\n\n<p>進行破冰活動，促進學員間的互動和融洽氛圍</p>\n\n<p><br></p>\n\n<ul><li>軟體開發概述 (SDLC) (10分鐘)</li></ul>\n\n<p>簡介軟體開發生命週期(SDLC)的階段與過程</p>\n\n<p><br></p>\n\n<ul><li>敏捷方法論介紹 (Scrum, Kanban, XP) (10分鐘)</li></ul>\n\n<p>簡要介紹敏捷方法論，包括Scrum、Kanban、XP等</p>\n\n<p>說明各種方法論的特點和應用場景</p>\n\n<p><br></p>\n\n<ul><li>敏捷開發實戰 (Paper Prototyping) (60分鐘)</li></ul>\n\n<p>以紙本原型練習進行敏捷開發</p>\n\n<p>學員參與虛擬專案，體驗敏捷開發流程和方法</p>\n\n<p><br></p>\n\n<ul><li>敏捷開發中的溝通與協作 (10分鐘)</li></ul>\n\n<p>強調敏捷開發中團隊溝通和協作的重要性</p>\n\n<p>分享有效的溝通和協作策略</p>\n\n<p><br></p>\n\n<ul><li>總結與問答 (5分鐘)</li></ul>\n\n<p>對本工作坊進行總結，強調學員所學和獲得的收穫</p>\n\n<p>解答學員提出的問題和疑慮</p></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/842eeccf-d194-44bf-a1d0-aaf0aec986e6.jpg" alt=""></div> <div class="col-md-9"><h4>葉承宇 ( 丁丁)</h4> <h6>光寶科技 / 主任工程師</h6> <div><p>大家好，我是丁丁，目前在光寶科技擔任開發主任，負責軟體開發領域的領導與管理。</p>\n\n<p>除了在工作上的表現，我也積極參與敏捷相關活動，致力於推廣敏捷開發方法。我曾參與組織敏捷之旅和敏捷高峰會等活動，也是內湖敏捷社群的創始人。此外，我也發起了開談-接案讀書會，為業界同仁提供了一個交流學習的平台。在台灣敏捷協會擔任理事，為敏捷領域的發展盡一份心力。</p>\n\n<p>除了活動參與，我也擁有國際專案協會的專案管理師 (PMP) 和風險管理師 (PMI-RMP) 認證，以及敏捷聯盟的 SCRUM Master (CSM) 認證。</p>\n\n<p>我是一位敏捷專家和領導者，在軟體開發領域取得了優秀的成果，並以團隊合作的方式實現目標。我致力於成功引進新產品上市，並在業界累積豐富的經驗與專業知識。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Workplace Culture</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>壓力測試大冒險：解鎖應用程式的隱藏性能之謎</h3></div> <div><p>在本次議程中，我們將全面介紹並分享壓力測試的基本觀念和理念。</p>\n\n<p>首先，我們將深入探究壓力測試的重要性，探討如何明確定義測試目標，並闡述測試如何在應用程式中發現脆弱點，確保系統的穩定性與可靠性。</p>\n\n<p>接著，我們將著重探討壓力測試與服務等級協定（SLA）之間的密不可分聯繫，闡明在確保系統滿足用戶期望方面，壓力測試所扮演的關鍵角色。</p>\n\n<p>最後，我們將透過實際案例與工具演示，深入探討如何精心設計壓力測試場景，模擬各種負載情境，以揭示應用程式的性能極限。這三個核心觀念將引導參與者深入理解壓力測試，揭開優越性能的秘密，同時突顯壓力測試在確保SLA達成中的關鍵作用。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/ceea84d8-38a4-4813-91de-393ab84fdfba.jpg" alt=""></div> <div class="col-md-9"><h4>董淳吉 (Marcus Tung)</h4> <h6>鼎恒數位科技 <span style="display:;">/</span> 協理</h6> <div><p>後端打雜小弟，10 年以上軟體相關開發經驗，熱愛去學習一切有興趣的事物，喜歡上技術相關課程、參與外部研討會吸收新知識。</p>\n\n<p>個人技術部落格 : https://marcus116.blogspot.com</p>\n\n<p>Facebook 粉絲頁面：https://www.facebook.com/marcustung.tech</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Performance</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Heptabase from 0 to 1</h3></div> <div><p>新創團隊的每一步都充滿著不確定性，在從 0 到 1 的過程當中，如何兼顧用戶的需求與期待、工程的開發成本、產品迭代速度不是一件容易的事情。在這場演講中，我們將分享在 Heptabase 中，產品開發模式、工程原則與各種功能開發的評估方式與實作的歷程。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/a5d4d2a1-f16e-4eb1-a286-b54fde700b85.jpg" alt=""></div> <div class="col-md-9"><h4>詹雨安 (Yu-An Chan)</h4> <h6>Heptabase <span style="display:;">/</span> Co-founder and CEO</h6> <div><p>Heptabase 創辦人，熱愛學習和做研究，希望能打造全世界最好用的工具和知識網路來幫助大家學習和做研究。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/5b4d6765-4c41-4203-a1aa-d04f9aae2f84.jpg" alt=""></div> <div class="col-md-9"><h4>王祐崙 (Yu-Lun Wang)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>目前任職於 Heptabase，之前在資安公司負責資料視覺化的相關開發，喜歡研究各種技術以及在新創從 0 到 1 打造產品的過程。</p></div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/10/2/4a5377e3-938e-4cee-a2bb-2d6a0537fe11.jpg" alt=""></div> <div class="col-md-9"><h4>周玉鑫 (Yu-Hsin Chou)</h4> <h6>Heptabase <span style="display:;">/</span> Software Engineer</h6> <div><p>熱愛研究各種不同的軟硬體技術，從系統底層利用 C 開發簡易 OS kernel，到有複雜交互行為需要考慮的文本編輯器。曾於 Amazon Ring 實習，目前在 Heptabase 協助前後端與手機 app 的開發，喜愛在新創實踐從零到一的過程，運用自身的技術能力做出用戶喜愛的產品！</p>\n\n<p><br></p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>人生奪還計畫</h3></div> <div><p>我只想提早下班吸貓：簡介低代碼平台與評估採用的理由</p>\n\n<p>Code to low code. - 使用Angular及AWS建造低代碼平台的架構</p>\n\n<p>我希望User也能準時下班 - 分享低代碼平台預期在公司（國泰世紀產物保險）的應用場景</p>\n\n<p>沒有最好，只有更好 - 後續的可能應用發展及規劃</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/353b76b4-4136-40af-a795-d80d285b7791.jpg" alt=""></div> <div class="col-md-9"><h4>熊庭緯 (小熊)</h4> <h6>國泰世紀產物保險 <span style="display:;">/</span> 前端開發小組研發人員</h6> <div><p>現任職於國泰產險中台開發科前端小組的研發工程師，主要使用Angular做前端網頁開發的工具。擅長的項目為資料視覺化，除了一般的專案開發以外，也有製作與維護前端套件，如圖表、行事曆、地圖等等，目前致力於開發低代碼平台。</p>\n\n</div></div></div><div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/31245ae2-65ce-4f3f-a08d-10ff4b28ae01.jpg" alt=""></div> <div class="col-md-9"><h4>楊勝堡 (湯姆羊)</h4> <h6>國泰世紀產物保險 <span style="display:;">/</span> 前端開發小組組長</h6> <div><p>在後端開發了10年後，一個不小心掉到前端坑裡，只好努力地生存下去。</p>\n\n<p>現任國泰產險資訊架構部擔任前端小組負責人，創建目前產險前端團隊，主要負責前端系統架構發展規劃/專案系統設計/人才培訓</p>\n\n<p>軟體開發資歷：</p>\n\n<p>1. 資策會雲端所(Java) - 協助產品開發</p>\n\n<p>2. 臺灣金融科技(Java) - 平台設計＆開發</p>\n\n<p>3. 國泰產險(Java, Angular) - 核心系統開發、前端技術導入暨發展規劃</p>\n\n<p><br></p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Look &amp; Feel</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#老司機（Veteran）</div><div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#經營決策者（Decision makers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>識別出遠距團隊的 bad smell</h3></div> <div><p>在這個快速變遷的商業環境中，遠距工作已成常態，即使如此，也並非每個團隊都走得很順利，有哪些常見的壞味道，是可以讓我們引以為戒的？而成功的遠距公司，又做了哪些事？如果你不是管理層，你是團隊中的一份子，如何持續自我提升以適應這個環境。畢竟遠距團隊的成功需要每個人的努力。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/12b4172e-78fe-42a1-b1c8-cddb52808ccb.jpg" alt=""></div> <div class="col-md-9"><h4>劉艾霖 (A-Lin)</h4> <h6>遠距工作者在台灣 <span style="display:;">/</span> 社群創辦人</h6> <div><p>「遠距工作者在台灣」社群創辦人，致力於推廣遠距工作型態，並積極參與各類社群活動。 曾任 MOPCON 年會講者、JSDC 年會講者、ModernWeb 年會講者、WebConf 講者。 關注焦點於軟體開發、領導遠距開發團隊、區塊鏈、Web 以及 DevOps 領域。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#Remote Work</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#維運者（Operators）</div><div>#非IT部門（Non-IT）</div><div>#經營決策者（Decision makers）</div><div>#設計師（Designer）</div><div>#PM</div><div>#UI/UX</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Mock framework 原始碼剖析</h3></div> <div><p>Mock framework 是我們寫單元測試時常用的工具，但你真的知道背後的程式碼怎麼運作的嗎? 這個議題會透過剖析三個我們常見的 stub, mock 和 spy 行為，分析 Mock framework 背後的技術架構是怎麼運作的!</p>\n\n<p>備註: 此議程會用 Laravel Mock Framework 為例</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/6428e008-92ba-423c-8a14-276ec7bc0bdf.jpg" alt=""></div> <div class="col-md-9"><h4>劉奕為 (John Liu)</h4> <h6>Netskope <span style="display:;">/</span> Full stack engineer / team lead</h6> <div><p>時常在 Web 全端開發技術領域打滾，有過多種語言和框架經驗，最近最常研究 PHP、Javascript 和技術管理議題，喜歡看見團隊勝利大過個人勝利。</p>\n\n<p>目前在來自矽谷的資安公司 Netskope 擔任全端工程師，協助開發 SaaS 平台，並和多個教學單位合作，目前主要在 AppWorks School 協助培育資訊幼苗。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div></li> <li><div class="title">適合聽眾</div> <div>#老司機（Veteran）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>從零開始打造可觀測性平台</h3> <div><p>在現今複雜的軟體架構中，無論是單體式抑或分散式系統，可觀測性皆扮演不可或缺的角色。透過即時收集並分析 Logs、Metrics 以及 Traces，我們得以深入瞭解系統運行狀況，迅速解決問題並提升系統的可靠性。這個工作坊將帶領大家了解可觀測性的核心概念，並解說如何從零開始建立一個簡單而功能完備的可觀測性平台，讓你的應用不再是黑箱，而是能夠全面了解與監控的系統。</p>\n\n<p>在這個工作坊中，你將累積豐富的知識與實用技巧。首先，我們會簡要說明 Logs、Metrics 和 Traces 的重要性，以及如何使用各種開源軟體生成、蒐集、儲存和運用這些資料。透過實際案例，你將瞭解如何將這三個要素交互結合使用，以更完整地把握系統全貌。接著，我們將使用 Docker Compose 快速打造可觀測性平台，透過預設的 Grafana，你將能迅速瞭解資料源的配置和儀表板的建立。其中，最關鍵的是，你將親自實踐如何優化可觀測性平台的架構，在實作中學習如何整合多種可觀測性工具。這個工作坊將啟發你掌握如何建立簡潔的可觀測性平台，以迅速評估投入更多資源於建置完整平台的價值。同時，你也能透過小型 POC 與團隊分享成果、效益與適用情境，為决策提供實際依據。無論你是初探可觀測性的新手或者已有經驗，這個工作坊都將為你帶來寶貴的啟發與實用洞見。</p></div> <h5 class="sub-title"><br>課程目標</h5> <div><ol><li>瞭解 Logs、Metrics、Traces 的生成、收集、儲存、使用共四個階段的處理方式</li><li>使用 Docker Compose 建立的簡易可觀測性平台，釐清資料傳遞方式與各自元件的用途</li><li>學習在 Grafana 中交互應用 Logs、Metrics、Traces 三種資訊</li><li>強化應用的可觀測性，並建立可觀測性平台 POC 供後續評估與初步驗證效益</li></ol></div> <h5 class="sub-title"><br>課程綱要</h5> <div><p>Workshop Outline:</p>\n\n<ul><li>10 min: Observability 基礎概念介紹</li><li>25 min: Demo Project &amp; Data Flow &amp; 交互應用</li><li>10 min: Hands-on: 動手操作可觀測性平台</li><li>5 min: QA</li><li>20 min: More Components: OpenTelemetry Collector, Grafana Mimir</li><li>10 min: Hands-on: Add Components</li><li>5 min: QA</li><li>5 min: Recap &amp; Conclusion</li></ul>\n\n<p>Workshop 會使用到的可觀測性工具：</p>\n\n<ol><li>Grafana</li><li>Grafana Loki</li><li>Grafana Tempo</li><li>Grafana Mimir</li><li>Prometheus</li><li>OpenTelemetry</li></ol>\n\n<p>Hands-on 參考 Repository：</p>\n\n<ol><li>https://github.com/blueswen/fastapi-observability</li><li>https://github.com/blueswen/spring-boot-observability</li><li>https://github.com/blueswen/fastapi-jaeger</li><li>https://github.com/blueswen/opentelemetry-apm</li></ol></div> <h5 class="sub-title"><br>學員自備裝置</h5> <div><p>與會人員需要自備筆電，並確認符合以下條件：</p>\n\n<ol><li>能夠連線至網際網路，以便連線至 GitHub、Docker Hub 取得相關資源</li><li>預先安裝 Docker 與 Docker Compose，且可正常使用 Volume 掛載與 Port Forwarding 功能</li></ol>\n\n<p><br></p>\n\n<p>技能門檻</p>\n\n<p>Workshop 使用 Container 搭建 Lab 環境，需了解：</p>\n\n<ol><li>Container 基礎原理，至少包括：Volume、Port Forwarding</li><li>Docker 和 Docker Compose 基礎操作指令，至少包括：docker run、docker build、docker-compose up、docker-compose down</li></ol></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/a1113fcf-43b7-40e4-bc98-ddfafe7cc5c8.jpg" alt=""></div> <div class="col-md-9"><h4>劉義瑋 (Blueswen)</h4> <h6>國泰人壽保險股份有限公司 / 襄理</h6> <div><p>工作經驗約六年，由 SWE 轉為偶爾做做機器學習專案的 DevOps Engineer。主要工作為 Python CICD Pipeline 維運、各類 DevOps 工具評估與導入以及強化開發者體驗。目前負責導入可觀測性平台，鋪墊 SRE 文化發展的良好基礎。</p>\n\n<p>GitHub: https://github.com/blueswen</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#SRE</div></li> <li><div class="title">適合聽眾</div> <div>#開發者（Developers）</div><div>#新人（Newcomer）</div><div>#維運者（Operators）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>透過 Leetcode 學習 TS</h3></div> <div><p>如何利用Leetcode來學習TypeScript</p>\n\n<p>• 演講重點</p>\n\n<p>1. 前端工程師如何快速學習TypeScript</p>\n\n<p>2. Leetcode上的TypeScript題目和解法</p>\n\n<p>3.TypeScript轉譯成 JavaScript 的程式碼比較</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/70ee6762-cf22-4ec3-aded-36c92f53792e.jpg" alt=""></div> <div class="col-md-9"><h4>蔡宇祥 (Tim.Tsai)</h4> <h6>台達電子 <span style="display:;">/</span> Engineer</h6> <div><p>台達電斜槓全端工程師和 Scrum Master，現在正研究 Vue.js, Typescript, K8s, CICD 等技術的無限可能性，從斜槓角度，改善開發流程，在專案中協助同仁在技術以及Scurm流程中不卡關，相信與人分享的同時，會為自己帶來更多。</p>\n\n</div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Growth &amp; Development</div><div>#LeetCode</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<h3>Docker Workshop</h3> <div><p>透過實際運用場景的分享，跟還沒碰過 Docker 的工程師們分享怎麼快速上手 Docker 的操作。</p>\n\n<ul><li>Docker 優點: 容器技術的優勢及對工作的幫助</li><li>Docker 指令: 指令練習與操作</li><li>Dockerfile: 怎麼自己建立 Docker image</li><li>Docker 使用上的注意事項</li><li>Docker 原理: container 底層原理介紹</li></ul></div> <h5 class="sub-title"><br>課程目標</h5> <div><p>讓還不會用 Docker 的工程師可以快速入門上手</p>\n\n<ul><li>學會 Docker 的操作</li><li>學會如何運用 Docker 協助開發工作</li></ul></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <!----> <div></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/3881b96c-66a6-418f-9d60-865a9da3ffbf.jpg" alt=""></div> <div class="col-md-9"><h4>賴怡玲 (小賴)</h4> <h6>AppWorks School / 後端技術導師</h6> <div><p>熱愛網站開發的一條龍工程師，擅長從兵荒馬亂、資源有限的團隊中做出些什麼來，特別喜歡後端開發、容器技術跟 AWS，有幸在 2022 iThome 鐵人賽 DevOps 組獲得冠軍，著有《Docker 實戰 6堂課：56個實驗動手做，掌握 Linux 容器核心技術》。目前是在 AppWorks School 擔任後端技術導師，推坑更多人加入 Web 開發與 SRE。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    通識\n                                </li> <li><div class="title">TAGS</div> <div>#Services &amp; Pipeline</div><div>#Docker</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+        {
+          data: [
+            '<div class="d-flex"><div class="session-time"><!----></div> <h3>Blazor寫一次就討好Web＆App開發</h3></div> <div><p>Blazor是由微軟開發的Web前端框架，使用C#語言撰寫前端程式碼，也能配合既有CSS/js撰寫的Web元件組合起來運行；由Blazor撰寫的程式能單獨以WebAssembly沙盒機制在瀏覽器執行，也可在.NET原生Ap開發技術框架提供的特製WebView元件內執行，這樣的特性讓Blazor成為一個只要透過簡單的架構設計，就能達到程式碼Write Once Run Everywhere的UI框架。本次演講將會透過實做手機錄影打卡的範例，來說明如何使用Blazor來開發共通UI架構的Web＆App應用。</p></div> <div class="row justify-content-center agenda-sp"><div class="col-6 col-md-3"><img src="https://ccmsassets.ithome.com.tw/2023/9/21/44672d28-8f20-4fb5-9414-5b04ab52598b.jpg" alt=""></div> <div class="col-md-9"><h4>鮑承佑 (老鮑伯)</h4> <h6>Zealogics <span style="display:;">/</span> 資深軟體工程師</h6> <div><p>本人於 2007 年底投身資訊業，從原本寫 Java， 2009 年開始接觸 WPF、Silverligh t的 C# 桌面應用程式開始投入 .NET開發，之後於資拓宏宇擔任軟體專案工程師，於 2014 年投入遊戲業在台灣卡普空擔任開發組組長，2018 到2023 上半在XR領域相關新創擔任 CTO；Unity, Xamarin/MAUI, ASP.NET Core, Blazor, Azure SignalR 等前後端與Azure雲端開發技術都略懂略懂，但抓 bug 比較在行。</p></div></div></div>',
+            '<ul class="session-tag"><li><div class="title">LEVEL</div>\n                                    中階\n                                </li> <li><div class="title">TAGS</div> <div>#Business Logic &amp; Data</div></li> <li><div class="title">適合聽眾</div> <div>#新人（Newcomer）</div><div>#開發者（Developers）</div></li> <li><div class="title"> SESSION TYPE</div>\n                                    現場演講\n                                </li> <li><div class="title"> LANGUAGE</div>\n                                    中文\n                                </li> <!----></ul>',
+          ],
+        },
+      ]
+
+      // 過濾重複資料
+      data = data.map((i) => JSON.stringify(i))
+      data = [...new Set(data)].map((i) => JSON.parse(i))
+
+      // 內容
+      const container = document.createElement('div')
+      container.setAttribute('class', 'container')
+
+      // 演講內容
+      const lecturedescription = document.createElement('div')
+      lecturedescription.setAttribute('class', 'lecturedescription')
+
+      let index = 0
+      for (const i of data) {
+        const item = document.createElement('div')
+        item.setAttribute('class', 'item')
+        item.setAttribute('id', 'lecture__' + index)
+        index = index + 1
+
+        for (const j of i.data) {
+          const box = document.createElement('div')
+          box.setAttribute('class', 'box')
+          box.innerHTML = j
+
+          item.appendChild(box)
+        }
+
+        lecturedescription.appendChild(item)
+      }
+
+      container.appendChild(lecturedescription)
+      document.body.appendChild(container)
+
+      // 演講主題
+      const lectureGroup = document.createElement('div')
+      lectureGroup.setAttribute('class', 'lectureGroup')
+
+      const t = document.createElement('h4')
+      t.innerHTML = 'Modern Web Conference 演講主題列表'
+      lectureGroup.appendChild(t)
+
+      const lectureTitles = document.createElement('ol')
+      lectureTitles.setAttribute('class', 'lectureTitles')
+      lectureGroup.appendChild(lectureTitles)
+
+      const h3s = document.querySelectorAll('.item .box h3')
+      index = 0
+      for (const h3 of h3s) {
+        const li = document.createElement('li')
+        const liClass = []
+        if (intrestedLectures.includes(index + 1)) liClass.push('intrested')
+        if (priorityLectures.includes(index + 1)) liClass.push('priority')
+        li.setAttribute('class', liClass.join(' '))
+        const link = document.createElement('a')
+        link.setAttribute('href', '#lecture__' + index)
+        link.setAttribute('class', 'lectureLink')
+
+        index = index + 1
+        link.innerHTML = h3.innerHTML
+        li.appendChild(link)
+        lectureTitles.appendChild(li)
+      }
+
+      container.insertBefore(lectureGroup, lecturedescription)
+
+      const btnTop = document.createElement('button')
+      btnTop.setAttribute('class', 'btnTop')
+      btnTop.innerText = 'Top'
+      btnTop.addEventListener('click', () => {
+        window.scrollTo(0, 0)
+      })
+      document.body.appendChild(btnTop)
+    </script>
+  </body>
+</html>
